@@ -1,5 +1,4 @@
 from antlr4 import *
-from Grammar.gramaticaLexer import gramaticaLexer
 from Grammar.gramaticaParser import gramaticaParser
 from Grammar.gramaticaVisitor import gramaticaVisitor
 from scipy import stats
@@ -8,7 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-class MiVisitor(gramaticaVisitor):
+class VisitorCompiler(gramaticaVisitor):
     def __init__(self):
         self.variables = {}
 
@@ -401,16 +400,3 @@ class MiVisitor(gramaticaVisitor):
                 a = np.arctan(value)
             return a       
 
-
-def main():
-    lexer = gramaticaLexer(InputStream(input()))
-    stream = CommonTokenStream(lexer)
-    parser = gramaticaParser(stream)
-    tree = parser.start()
-
-    visitor = MiVisitor()
-    visitor.visit(tree)
-
-
-if __name__ == '__main__':
-    main()
