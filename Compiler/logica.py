@@ -1,7 +1,7 @@
 from antlr4 import *
-from gramaticaLexer import gramaticaLexer
-from gramaticaParser import gramaticaParser
-from gramaticaVisitor import gramaticaVisitor
+from Grammar.gramaticaLexer import gramaticaLexer
+from Grammar.gramaticaParser import gramaticaParser
+from Grammar.gramaticaVisitor import gramaticaVisitor
 from scipy import stats
 import math
 import matplotlib.pyplot as plt
