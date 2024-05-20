@@ -1,9 +1,9 @@
 def prueba(num) {
     print("3 veces");
     for i in range(0, num) {
-        print('Hola mundo');
+        print("Hola mundo");
         if(i == 2){
-            print('Fin');
+            print("Fin");
         }
     }    
 }

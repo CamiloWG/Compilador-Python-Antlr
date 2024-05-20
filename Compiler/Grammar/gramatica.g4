@@ -7,6 +7,7 @@ SEP:'¬';
 ESP:'~';
 EX : '!';
 NEWLINE: '\r'? '\n' ; 
+TAB: '\t';
 NUMERO: '-'?[0-9]+'.'?[0-9]?;    
 WS: [ \t\r\n]+ -> skip;
 IMPORT: 'import';
@@ -66,7 +67,8 @@ POTENCIA:'^';
 MODULO:'%';
 WRITE: 'write';
 OPEN: 'open';
-ID: [a-zA-Z] [a-zA-Z0-9]*;  
+ID: [a-zA-Z] [a-zA-Z0-9]*;
+STRING: '"'(~["\\\r\n])*'"';
 
 
 start: sentencias+ ;
@@ -108,11 +110,8 @@ var_casteo: STR
 
 casteo: var_casteo PARENTESIS_A expresion PARENTESIS_C;
 
-cadena  : COMILLASIMPLE .+? COMILLASIMPLE
-        | COMILLADOBLE .+? COMILLADOBLE 
-        | COMILLADOBLE (.+? | EX)* COMILLADOBLE
-        | COMILLASIMPLE (.+? | EX)* COMILLASIMPLE
-        ;
+cadena : STRING;
+
 
 funcion: DEF ID PARENTESIS_A parametro? PARENTESIS_C LLAVE_A stmt_func LLAVE_C;
 
