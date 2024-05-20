@@ -53,6 +53,7 @@ class VisitorCompiler(gramaticaVisitor):
         
     def visitFuncion(self, ctx):
         func_name = ctx.ID().getText()
+        print("Defined func:", func_name)
         params = self.visit(ctx.parametro()) if ctx.parametro() else []
         body = ctx.stmt_func()
         self.funciones[func_name] = (params, body)

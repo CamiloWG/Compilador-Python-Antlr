@@ -7,8 +7,7 @@ SEP:'¬';
 ESP:'~';
 EX : '!';
 NEWLINE: '\r'? '\n' ; 
-NUMERO: '-'?[0-9]+'.'?[0-9]?;
-ID: [a-zA-Z0-9];           
+NUMERO: '-'?[0-9]+'.'?[0-9]?;    
 WS: [ \t\r\n]+ -> skip;
 IMPORT: 'import';
 DEF: 'def';
@@ -67,6 +66,7 @@ POTENCIA:'^';
 MODULO:'%';
 WRITE: 'write';
 OPEN: 'open';
+ID: [a-zA-Z] [a-zA-Z0-9]*;  
 
 
 start: sentencias+ ;
@@ -167,20 +167,20 @@ fila_matriz: CORCHETE_A expresion (COMA expresion)* CORCHETE_C;
 importss: IMPORT ('math' | 'matplotlib.pyplot' | 'numpy as np');
 
 termino: NUMERO
-       | ID+
+       | ID
        | BOOLEAN
        | cadena
        | lista
        | arreglo
        ;
 
-lista: PARENTESIS_A (NUMERO | ID+ | BOOLEAN | cadena | COMA)+ PARENTESIS_C;
+lista: PARENTESIS_A (NUMERO | ID | BOOLEAN | cadena | COMA)+ PARENTESIS_C;
 
-arreglo: CORCHETE_A (NUMERO | ID+ | BOOLEAN | cadena | COMA)+ CORCHETE_C;
+arreglo: CORCHETE_A (NUMERO | ID | BOOLEAN | cadena | COMA)+ CORCHETE_C;
 
 graficas: ('plot'|'scatter'|'fill_between'|'bar'|'barh'|'hist') PARENTESIS_A x=expresion ',' y=expresion PARENTESIS_C
         | ('pie'|'boxplot') PARENTESIS_A x=expresion  PARENTESIS_C
-        | ('grafsen'|'grafcos'|'graftan') PARENTESIS_A (arange|ID+) COMA func PARENTESIS_C
+        | ('grafsen'|'grafcos'|'graftan') PARENTESIS_A (arange|ID) COMA func PARENTESIS_C
         ;
 
 arange  : 'linspace' PARENTESIS_A expresion COMA expresion '*' 'np' PUNTO 'pi' COMA expresion PARENTESIS_C
