@@ -11,6 +11,7 @@ class VisitorCompiler(gramaticaVisitor):
     def __init__(self):
         self.variables = {}
         self.funciones = {}
+        self.call_stack = []
 
 
     def visitAsignacion(self, ctx: gramaticaParser.AsignacionContext):
@@ -38,33 +39,41 @@ class VisitorCompiler(gramaticaVisitor):
         print(value)
         return value
     
-    def visitParametro(self, ctx: gramaticaParser.ParametroContext):
-        return ctx.parametro();
+    def visitParametro(self, ctx):
+        if ctx.ID():
+            return [self.visit(id) for id in ctx.ID()]
+        return []
 
         
-    def visitFuncion(self, ctx: gramaticaParser.FuncionContext):
-        func_name = ctx.ID()
-        val = [ctx.parametro(), ctx.stmt_func()]
-        self.funciones[func_name] = val
+    def visitFuncion(self, ctx):
+        func_name = ctx.ID().getText()
+        params = self.visit(ctx.parametro()) if ctx.parametro() else []
+        body = ctx.stmt_func()
+        self.funciones[func_name] = (params, body)
 
-    def visitLlamafuncion(self, ctx: gramaticaParser.LlamafuncionContext):
-        params_func, stmt_fn = self.funciones[ctx.ID()]
-        params_decl = self.visit(params_func)
+    def visitLlamafuncion(self, ctx):
+        func_name = ctx.ID().getText()
+        params_func, body = self.funciones[func_name]
+        passed_params = self.visit(ctx.parametro()) if ctx.parametro() else []
 
-        if(len(params_decl) > 0):
-            params = self.visit(ctx.parametro())
-            
-            declargsids = [self.visit(declaration)
-                           for declaration in params_decl][0][2]
-            
-            for id, val in declargsids, params:
-                self.variables[id] = val
-        
-        self.executeSentencia(stmt_fn)
+        prev_vars = self.variables.copy()
+        self.call_stack.append(prev_vars)
+        self.variables = {param: arg for param, arg in zip(params_func, passed_params)}
 
-    def executeSentencia(self, ctx: gramaticaParser.Stmt_funcContext):
-        for sentencia in ctx.sentencias:
+
+        self.executeSentencia(body)
+        self.variables = self.call_stack.pop()
+
+    def executeSentencia(self, ctx):
+        for sentencia in ctx.sentencias():
             self.visit(sentencia)
+        if ctx.v_return():
+            return self.visit(ctx.v_return())
+
+    def visitV_return(self, ctx):
+        if ctx.expresion():
+            return self.visit(ctx.expresion())
+        return None
 
     def visitCondicional(self, ctx: gramaticaParser.CondicionalContext):
         condition = self.visit(ctx.expresion())
