@@ -1,4 +1,4 @@
-# Generated from gramatica.g4 by ANTLR 4.13.1
+# Generated from Compiler/Grammar/gramatica.g4 by ANTLR 4.13.1
 from antlr4 import *
 if "." in __name__:
     from .gramaticaParser import gramaticaParser
@@ -86,6 +86,15 @@ class gramaticaListener(ParseTreeListener):
 
     # Exit a parse tree produced by gramaticaParser#funcion.
     def exitFuncion(self, ctx:gramaticaParser.FuncionContext):
+        pass
+
+
+    # Enter a parse tree produced by gramaticaParser#stmt_func.
+    def enterStmt_func(self, ctx:gramaticaParser.Stmt_funcContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#stmt_func.
+    def exitStmt_func(self, ctx:gramaticaParser.Stmt_funcContext):
         pass
 
 

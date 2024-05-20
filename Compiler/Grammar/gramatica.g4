@@ -30,7 +30,7 @@ INPUT: 'input';
 PRINT: 'print';
 INT: 'int';
 FLOAT: 'float';
-BOOLEAN: 'True' | 'False';
+BOOLEAN: 'true' | 'false';
 STR: 'str';
 POW: 'pow';
 MATHSQRT: 'mathsqrt';
@@ -90,14 +90,14 @@ sentencias      : printf
                 | escritura_archivo
                 ;
 
-asignacion: ID ASIGNACION var_casteo? PARENTESIS_A? (expresion | v_input | matriz_operaciones | arange) PARENTESIS_C?
-          | ID ASIGNACION ID PARENTESIS_A (parametro | expresion | matriz_operaciones )? PARENTESIS_C 
-          | ID ASIGNACION cadena
+asignacion: ID ASIGNACION var_casteo? PARENTESIS_A? (expresion | v_input | matriz_operaciones | arange) PARENTESIS_C? PUNTOCOMA
+          | ID ASIGNACION ID PARENTESIS_A (parametro | expresion | matriz_operaciones )? PARENTESIS_C PUNTOCOMA
+          | ID ASIGNACION cadena PUNTOCOMA
           ;
 
 v_input: var_casteo? PARENTESIS_A? INPUT PARENTESIS_A expresion? PARENTESIS_C PARENTESIS_C?;
 
-printf: PRINT PARENTESIS_A (expresion| COMA |matriz_operaciones)? PARENTESIS_C
+printf: PRINT PARENTESIS_A (expresion| COMA |matriz_operaciones)? PARENTESIS_C PUNTOCOMA
 	;
 
 var_casteo: STR
@@ -114,34 +114,35 @@ cadena  : COMILLASIMPLE .+? COMILLASIMPLE
         | COMILLASIMPLE (.+? | EX)* COMILLASIMPLE
         ;
 
-funcion: DEF ID PARENTESIS_A parametro? PARENTESIS_C DOSPUNTOS sentencias v_return? sentencias
-       | DEF ID PARENTESIS_A PARENTESIS_C DOSPUNTOS sentencias v_return? sentencias
-       | DEF ID PARENTESIS_A parametro? PARENTESIS_C DOSPUNTOS sentencias
-       | DEF ID PARENTESIS_A PARENTESIS_C DOSPUNTOS sentencias
-       ;
+funcion: DEF ID PARENTESIS_A parametro? PARENTESIS_C LLAVE_A stmt_func LLAVE_C;
 
-v_return: RETURN expresion;
+stmt_func: sentencias* v_return?;
+
+
+v_return: RETURN expresion PUNTOCOMA
+        | RETURN PUNTOCOMA
+        ;
 
 llamafuncion: ID PARENTESIS_A parametro? PARENTESIS_C;
 
-condicional: IF PARENTESIS_A? (parametro|expresion) PARENTESIS_C? DOSPUNTOS sentencias+ END elifBlock? condicional_else? ;
+condicional: IF PARENTESIS_A? (parametro|expresion) PARENTESIS_C? LLAVE_A sentencias+ LLAVE_C elifBlock? condicional_else? ;
 
-elifBlock:condicional_elif+;
+elifBlock: condicional_elif+;
 
-condicional_elif: ELIF PARENTESIS_A? (parametro|expresion) PARENTESIS_C? DOSPUNTOS sentencias+ END;
+condicional_elif: ELIF PARENTESIS_A? (parametro|expresion) PARENTESIS_C? LLAVE_A sentencias+ LLAVE_C;
 
-condicional_else: ELSE DOSPUNTOS sentencias+ END ;
+condicional_else: ELSE LLAVE_A sentencias+ LLAVE_C;
 
-ciclo_for: FOR ID IN RANGE PARENTESIS_A expresion COMA? expresion? COMA? expresion? PARENTESIS_C DOSPUNTOS sentencias+ v_return? END
-          | FOR ID IN expresion DOSPUNTOS sentencias+ v_return? END
-          | FOR ID IN cadena DOSPUNTOS sentencias+ v_return? END
+ciclo_for: FOR ID IN RANGE PARENTESIS_A expresion COMA? expresion? COMA? expresion? PARENTESIS_C LLAVE_A sentencias+ v_return? LLAVE_C
+          | FOR ID IN expresion LLAVE_A sentencias+ v_return? LLAVE_C
+          | FOR ID IN cadena LLAVE_A sentencias+ v_return? LLAVE_C
           ;
 
-ciclo_while: WHILE PARENTESIS_A? expresion PARENTESIS_C? DOSPUNTOS sentencias+ END;
+ciclo_while: WHILE PARENTESIS_A? expresion PARENTESIS_C? LLAVE_A sentencias+ LLAVE_C;
 
-parametro: ID COMA? parametro?;
+parametro: ID (COMA ID)*;
 
-func : ('math'|'np') PUNTO ('sin' | 'cos' | 'tan' | 'arcsin' | 'arccos' | 'arctan' |'factorial'|'sqrt' ) PARENTESIS_A expresion PARENTESIS_C ;
+func : ('math'|'np') PUNTO ('sin' | 'cos' | 'tan' | 'arcsin' | 'arccos' | 'arctan' |'factorial'|'sqrt' ) PARENTESIS_A expresion PARENTESIS_C;
 
 expresion: expresion (SUMA | RESTA | MULTIPLICACION | DIVISION | POTENCIA | MODULO) termino
          | expresion ( MAYORQUE | MENORQUE | MENORIGUAL | MAYORIGUAL | DIFERENTE | IGUAL | ASIGNACION ) termino

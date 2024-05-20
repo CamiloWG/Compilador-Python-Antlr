@@ -1,4 +1,4 @@
-# Generated from gramatica.g4 by ANTLR 4.13.1
+# Generated from Compiler/Grammar/gramatica.g4 by ANTLR 4.13.1
 from antlr4 import *
 if "." in __name__:
     from .gramaticaParser import gramaticaParser
@@ -51,6 +51,11 @@ class gramaticaVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by gramaticaParser#funcion.
     def visitFuncion(self, ctx:gramaticaParser.FuncionContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by gramaticaParser#stmt_func.
+    def visitStmt_func(self, ctx:gramaticaParser.Stmt_funcContext):
         return self.visitChildren(ctx)
 
 

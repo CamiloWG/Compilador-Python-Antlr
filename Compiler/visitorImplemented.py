@@ -10,6 +10,7 @@ import numpy as np
 class VisitorCompiler(gramaticaVisitor):
     def __init__(self):
         self.variables = {}
+        self.funciones = {}
 
 
     def visitAsignacion(self, ctx: gramaticaParser.AsignacionContext):
@@ -31,22 +32,39 @@ class VisitorCompiler(gramaticaVisitor):
 
     def visitPrintf(self, ctx: gramaticaParser.PrintfContext): 
         if(ctx.matriz_operaciones()):
-
             value = self.visit(ctx.matriz_operaciones())
         else:
             value = self.visit(ctx.expresion())
         print(value)
         return value
+    
+    def visitParametro(self, ctx: gramaticaParser.ParametroContext):
+        return ctx.parametro();
+
         
     def visitFuncion(self, ctx: gramaticaParser.FuncionContext):
-        # Implementa la lógica para definir y llamar funciones aquí
-        pass
+        func_name = ctx.ID()
+        val = [ctx.parametro(), ctx.stmt_func()]
+        self.funciones[func_name] = val
 
     def visitLlamafuncion(self, ctx: gramaticaParser.LlamafuncionContext):
-        function_name = ctx.ID().getText()
-        arguments = ctx.parametro().getText() if ctx.parametro() else ""
-        # Implementa la lógica para llamar a funciones aquí
-        pass
+        params_func, stmt_fn = self.funciones[ctx.ID()]
+        params_decl = self.visit(params_func)
+
+        if(len(params_decl) > 0):
+            params = self.visit(ctx.parametro())
+            
+            declargsids = [self.visit(declaration)
+                           for declaration in params_decl][0][2]
+            
+            for id, val in declargsids, params:
+                self.variables[id] = val
+        
+        self.executeSentencia(stmt_fn)
+
+    def executeSentencia(self, ctx: gramaticaParser.Stmt_funcContext):
+        for sentencia in ctx.sentencias:
+            self.visit(sentencia)
 
     def visitCondicional(self, ctx: gramaticaParser.CondicionalContext):
         condition = self.visit(ctx.expresion())
