@@ -1,4 +1,4 @@
-# Generated from Compiler/Grammar/gramatica.g4 by ANTLR 4.13.1
+# Generated from /home/ubuntu/Documentos/Universidad/Compilador-Python-Antlr/Compiler/Grammar/gramatica.g4 by ANTLR 4.13.1
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -442,20 +442,6 @@ class gramaticaParser ( Parser ):
         def getRuleIndex(self):
             return gramaticaParser.RULE_start
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStart" ):
-                listener.enterStart(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStart" ):
-                listener.exitStart(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitStart" ):
-                return visitor.visitStart(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -563,20 +549,6 @@ class gramaticaParser ( Parser ):
 
         def getRuleIndex(self):
             return gramaticaParser.RULE_sentencias
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterSentencias" ):
-                listener.enterSentencias(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitSentencias" ):
-                listener.exitSentencias(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitSentencias" ):
-                return visitor.visitSentencias(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -757,20 +729,6 @@ class gramaticaParser ( Parser ):
         def getRuleIndex(self):
             return gramaticaParser.RULE_asignacion
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterAsignacion" ):
-                listener.enterAsignacion(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitAsignacion" ):
-                listener.exitAsignacion(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitAsignacion" ):
-                return visitor.visitAsignacion(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -928,20 +886,6 @@ class gramaticaParser ( Parser ):
         def getRuleIndex(self):
             return gramaticaParser.RULE_v_input
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterV_input" ):
-                listener.enterV_input(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitV_input" ):
-                listener.exitV_input(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitV_input" ):
-                return visitor.visitV_input(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -1032,20 +976,6 @@ class gramaticaParser ( Parser ):
         def getRuleIndex(self):
             return gramaticaParser.RULE_printf
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterPrintf" ):
-                listener.enterPrintf(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitPrintf" ):
-                listener.exitPrintf(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitPrintf" ):
-                return visitor.visitPrintf(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -1110,20 +1040,6 @@ class gramaticaParser ( Parser ):
         def getRuleIndex(self):
             return gramaticaParser.RULE_var_casteo
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterVar_casteo" ):
-                listener.enterVar_casteo(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitVar_casteo" ):
-                listener.exitVar_casteo(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitVar_casteo" ):
-                return visitor.visitVar_casteo(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -1173,20 +1089,6 @@ class gramaticaParser ( Parser ):
 
         def getRuleIndex(self):
             return gramaticaParser.RULE_casteo
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCasteo" ):
-                listener.enterCasteo(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCasteo" ):
-                listener.exitCasteo(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCasteo" ):
-                return visitor.visitCasteo(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1241,20 +1143,6 @@ class gramaticaParser ( Parser ):
 
         def getRuleIndex(self):
             return gramaticaParser.RULE_cadena
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCadena" ):
-                listener.enterCadena(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCadena" ):
-                listener.exitCadena(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCadena" ):
-                return visitor.visitCadena(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1443,20 +1331,6 @@ class gramaticaParser ( Parser ):
         def getRuleIndex(self):
             return gramaticaParser.RULE_funcion
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFuncion" ):
-                listener.enterFuncion(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFuncion" ):
-                listener.exitFuncion(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFuncion" ):
-                return visitor.visitFuncion(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -1519,20 +1393,6 @@ class gramaticaParser ( Parser ):
         def getRuleIndex(self):
             return gramaticaParser.RULE_stmt_func
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStmt_func" ):
-                listener.enterStmt_func(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStmt_func" ):
-                listener.exitStmt_func(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitStmt_func" ):
-                return visitor.visitStmt_func(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -1589,20 +1449,6 @@ class gramaticaParser ( Parser ):
 
         def getRuleIndex(self):
             return gramaticaParser.RULE_v_return
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterV_return" ):
-                listener.enterV_return(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitV_return" ):
-                listener.exitV_return(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitV_return" ):
-                return visitor.visitV_return(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1665,20 +1511,6 @@ class gramaticaParser ( Parser ):
 
         def getRuleIndex(self):
             return gramaticaParser.RULE_llamafuncion
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterLlamafuncion" ):
-                listener.enterLlamafuncion(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitLlamafuncion" ):
-                listener.exitLlamafuncion(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitLlamafuncion" ):
-                return visitor.visitLlamafuncion(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1748,20 +1580,6 @@ class gramaticaParser ( Parser ):
 
         def getRuleIndex(self):
             return gramaticaParser.RULE_args
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterArgs" ):
-                listener.enterArgs(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitArgs" ):
-                listener.exitArgs(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArgs" ):
-                return visitor.visitArgs(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1878,20 +1696,6 @@ class gramaticaParser ( Parser ):
         def getRuleIndex(self):
             return gramaticaParser.RULE_condicional
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCondicional" ):
-                listener.enterCondicional(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCondicional" ):
-                listener.exitCondicional(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCondicional" ):
-                return visitor.visitCondicional(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -1992,20 +1796,6 @@ class gramaticaParser ( Parser ):
         def getRuleIndex(self):
             return gramaticaParser.RULE_elifBlock
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterElifBlock" ):
-                listener.enterElifBlock(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitElifBlock" ):
-                listener.exitElifBlock(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitElifBlock" ):
-                return visitor.visitElifBlock(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -2076,20 +1866,6 @@ class gramaticaParser ( Parser ):
 
         def getRuleIndex(self):
             return gramaticaParser.RULE_condicional_elif
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCondicional_elif" ):
-                listener.enterCondicional_elif(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCondicional_elif" ):
-                listener.exitCondicional_elif(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCondicional_elif" ):
-                return visitor.visitCondicional_elif(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2183,20 +1959,6 @@ class gramaticaParser ( Parser ):
 
         def getRuleIndex(self):
             return gramaticaParser.RULE_condicional_else
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCondicional_else" ):
-                listener.enterCondicional_else(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCondicional_else" ):
-                listener.exitCondicional_else(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCondicional_else" ):
-                return visitor.visitCondicional_else(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2296,20 +2058,6 @@ class gramaticaParser ( Parser ):
 
         def getRuleIndex(self):
             return gramaticaParser.RULE_ciclo_for
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCiclo_for" ):
-                listener.enterCiclo_for(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCiclo_for" ):
-                listener.exitCiclo_for(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCiclo_for" ):
-                return visitor.visitCiclo_for(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2515,20 +2263,6 @@ class gramaticaParser ( Parser ):
         def getRuleIndex(self):
             return gramaticaParser.RULE_ciclo_while
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCiclo_while" ):
-                listener.enterCiclo_while(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCiclo_while" ):
-                listener.exitCiclo_while(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCiclo_while" ):
-                return visitor.visitCiclo_while(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -2606,20 +2340,6 @@ class gramaticaParser ( Parser ):
         def getRuleIndex(self):
             return gramaticaParser.RULE_parametro
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterParametro" ):
-                listener.enterParametro(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitParametro" ):
-                listener.exitParametro(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitParametro" ):
-                return visitor.visitParametro(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -2675,20 +2395,6 @@ class gramaticaParser ( Parser ):
 
         def getRuleIndex(self):
             return gramaticaParser.RULE_func
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFunc" ):
-                listener.enterFunc(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFunc" ):
-                listener.exitFunc(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFunc" ):
-                return visitor.visitFunc(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2797,20 +2503,6 @@ class gramaticaParser ( Parser ):
 
         def getRuleIndex(self):
             return gramaticaParser.RULE_expresion
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExpresion" ):
-                listener.enterExpresion(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExpresion" ):
-                listener.exitExpresion(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExpresion" ):
-                return visitor.visitExpresion(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2950,20 +2642,6 @@ class gramaticaParser ( Parser ):
         def getRuleIndex(self):
             return gramaticaParser.RULE_matriz_operaciones
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterMatriz_operaciones" ):
-                listener.enterMatriz_operaciones(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitMatriz_operaciones" ):
-                listener.exitMatriz_operaciones(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMatriz_operaciones" ):
-                return visitor.visitMatriz_operaciones(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3081,20 +2759,6 @@ class gramaticaParser ( Parser ):
         def getRuleIndex(self):
             return gramaticaParser.RULE_matriz
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterMatriz" ):
-                listener.enterMatriz(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitMatriz" ):
-                listener.exitMatriz(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMatriz" ):
-                return visitor.visitMatriz(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3161,20 +2825,6 @@ class gramaticaParser ( Parser ):
         def getRuleIndex(self):
             return gramaticaParser.RULE_fila_matriz
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFila_matriz" ):
-                listener.enterFila_matriz(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFila_matriz" ):
-                listener.exitFila_matriz(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFila_matriz" ):
-                return visitor.visitFila_matriz(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3224,20 +2874,6 @@ class gramaticaParser ( Parser ):
 
         def getRuleIndex(self):
             return gramaticaParser.RULE_importss
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterImportss" ):
-                listener.enterImportss(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitImportss" ):
-                listener.exitImportss(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitImportss" ):
-                return visitor.visitImportss(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -3300,20 +2936,6 @@ class gramaticaParser ( Parser ):
 
         def getRuleIndex(self):
             return gramaticaParser.RULE_termino
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTermino" ):
-                listener.enterTermino(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTermino" ):
-                listener.exitTermino(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTermino" ):
-                return visitor.visitTermino(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -3426,20 +3048,6 @@ class gramaticaParser ( Parser ):
 
         def getRuleIndex(self):
             return gramaticaParser.RULE_lista
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterLista" ):
-                listener.enterLista(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitLista" ):
-                listener.exitLista(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitLista" ):
-                return visitor.visitLista(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -3559,20 +3167,6 @@ class gramaticaParser ( Parser ):
         def getRuleIndex(self):
             return gramaticaParser.RULE_arreglo
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterArreglo" ):
-                listener.enterArreglo(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitArreglo" ):
-                listener.exitArreglo(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArreglo" ):
-                return visitor.visitArreglo(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3685,20 +3279,6 @@ class gramaticaParser ( Parser ):
 
         def getRuleIndex(self):
             return gramaticaParser.RULE_graficas
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterGraficas" ):
-                listener.enterGraficas(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitGraficas" ):
-                listener.exitGraficas(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitGraficas" ):
-                return visitor.visitGraficas(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -3837,20 +3417,6 @@ class gramaticaParser ( Parser ):
         def getRuleIndex(self):
             return gramaticaParser.RULE_arange
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterArange" ):
-                listener.enterArange(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitArange" ):
-                listener.exitArange(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArange" ):
-                return visitor.visitArange(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3916,20 +3482,6 @@ class gramaticaParser ( Parser ):
         def getRuleIndex(self):
             return gramaticaParser.RULE_lectura_archivo
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterLectura_archivo" ):
-                listener.enterLectura_archivo(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitLectura_archivo" ):
-                listener.exitLectura_archivo(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitLectura_archivo" ):
-                return visitor.visitLectura_archivo(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3987,20 +3539,6 @@ class gramaticaParser ( Parser ):
 
         def getRuleIndex(self):
             return gramaticaParser.RULE_escritura_archivo
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterEscritura_archivo" ):
-                listener.enterEscritura_archivo(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitEscritura_archivo" ):
-                listener.exitEscritura_archivo(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitEscritura_archivo" ):
-                return visitor.visitEscritura_archivo(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 

@@ -69,6 +69,11 @@ class gramaticaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by gramaticaParser#args.
+    def visitArgs(self, ctx:gramaticaParser.ArgsContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by gramaticaParser#condicional.
     def visitCondicional(self, ctx:gramaticaParser.CondicionalContext):
         return self.visitChildren(ctx)

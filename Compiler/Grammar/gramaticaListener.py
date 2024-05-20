@@ -116,6 +116,15 @@ class gramaticaListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by gramaticaParser#args.
+    def enterArgs(self, ctx:gramaticaParser.ArgsContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#args.
+    def exitArgs(self, ctx:gramaticaParser.ArgsContext):
+        pass
+
+
     # Enter a parse tree produced by gramaticaParser#condicional.
     def enterCondicional(self, ctx:gramaticaParser.CondicionalContext):
         pass

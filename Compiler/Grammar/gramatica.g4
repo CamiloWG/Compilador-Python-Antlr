@@ -71,24 +71,24 @@ OPEN: 'open';
 
 start: sentencias+ ;
 
-sentencias      : printf
-                | asignacion
-                | condicional
-                | ciclo_while
-                | expresion
-                | funcion
-                | llamafuncion 
-                | ciclo_for
-                | v_input 
-                | casteo 
-                | graficas 
-                | importss 
-                | func
-                | matriz_operaciones
-                | NEWLINE
-                | lectura_archivo
-                | escritura_archivo
-                ;
+sentencias: printf
+        | asignacion
+        | llamafuncion 
+        | condicional
+        | ciclo_while
+        | expresion
+        | funcion
+        | ciclo_for
+        | v_input 
+        | casteo 
+        | graficas 
+        | importss 
+        | func
+        | matriz_operaciones
+        | NEWLINE
+        | lectura_archivo
+        | escritura_archivo
+        ;
 
 asignacion: ID ASIGNACION var_casteo? PARENTESIS_A? (expresion | v_input | matriz_operaciones | arange) PARENTESIS_C? PUNTOCOMA
           | ID ASIGNACION ID PARENTESIS_A (parametro | expresion | matriz_operaciones )? PARENTESIS_C PUNTOCOMA
@@ -123,7 +123,9 @@ v_return: RETURN expresion PUNTOCOMA
         | RETURN PUNTOCOMA
         ;
 
-llamafuncion: ID PARENTESIS_A parametro? PARENTESIS_C;
+llamafuncion: ID PARENTESIS_A args? PARENTESIS_C;
+
+args: (termino | ID | llamafuncion) (COMA (termino | ID | llamafuncion))*;
 
 condicional: IF PARENTESIS_A? (parametro|expresion) PARENTESIS_C? LLAVE_A sentencias+ LLAVE_C elifBlock? condicional_else? ;
 

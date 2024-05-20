@@ -40,9 +40,15 @@ class VisitorCompiler(gramaticaVisitor):
         return value
     
     def visitParametro(self, ctx):
-        if ctx.ID():
-            return [self.visit(id) for id in ctx.ID()]
+        if ctx:
+            ids = ctx.ID()
+            if not isinstance(ids, list):
+                ids = [ids]
+            return [id.getText() for id in ids]
         return []
+    
+    def visitArgs(self, ctx):
+        return [self.visit(termino) for termino in ctx.termino()]
 
         
     def visitFuncion(self, ctx):
@@ -53,19 +59,26 @@ class VisitorCompiler(gramaticaVisitor):
 
     def visitLlamafuncion(self, ctx):
         func_name = ctx.ID().getText()
-        params_func, body = self.funciones[func_name]
-        passed_params = self.visit(ctx.parametro()) if ctx.parametro() else []
+        if func_name not in self.funciones:
+            raise Exception(f"Function '{func_name}' not defined")
 
+        params_func, body = self.funciones[func_name]
+
+        passed_params = self.visit(ctx.args()) if ctx.args() else []
         prev_vars = self.variables.copy()
         self.call_stack.append(prev_vars)
-        self.variables = {param: arg for param, arg in zip(params_func, passed_params)}
 
+        for param, arg in zip(params_func, passed_params):
+            self.variables[param] = arg
 
-        self.executeSentencia(body)
+        self.visit(body) 
         self.variables = self.call_stack.pop()
+
+
 
     def executeSentencia(self, ctx):
         for sentencia in ctx.sentencias():
+            print("Visiting sentencia", sentencia)
             self.visit(sentencia)
         if ctx.v_return():
             return self.visit(ctx.v_return())

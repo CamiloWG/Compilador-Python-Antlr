@@ -1,16 +1,11 @@
-
-
 def p() {
     print("3 veces");
     for i in range(0, 3) {
         print('Hola mundo');
-        if( i == 2 ){
+        if(i == 2){
             print('Fin');
         }
-    } 
+    }    
 }
 
-
 p()
-
-print("Hola mundo");
