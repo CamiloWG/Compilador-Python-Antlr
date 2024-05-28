@@ -115,7 +115,7 @@ cadena : STRING;
 
 funcion: DEF ID PARENTESIS_A parametro? PARENTESIS_C LLAVE_A stmt_func LLAVE_C;
 
-stmt_func: sentencias* v_return;
+stmt_func: sentencias* v_return?;
 
 
 v_return: RETURN expresion PUNTOCOMA;
