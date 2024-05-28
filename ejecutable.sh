@@ -1,5 +1,5 @@
 #!/bin/bash
 
-antlr4  -Dlanguage=Python3 -visitor gramatica.g4 
+antlr4 -Dlanguage=Python3 -visitor Compiler/Grammar/gramatica.g4 
 
-python3 logica.py < prueba.txt
+python3 Compiler/main.py prueba.txt
