@@ -186,6 +186,6 @@ graficas: ('plot'|'scatter'|'fill_between'|'bar'|'barh'|'hist') PARENTESIS_A x=e
 
 arange  : 'linspace' PARENTESIS_A expresion COMA expresion '*' 'np' PUNTO 'pi' COMA expresion PARENTESIS_C
         ;
-lectura_archivo: OPEN PARENTESIS_A expresion PARENTESIS_C;
+lectura_archivo: OPEN PARENTESIS_A expresion PARENTESIS_C PUNTOCOMA;
 
-escritura_archivo: WRITE PARENTESIS_A expresion PARENTESIS_C DOSPUNTOS expresion END;
+escritura_archivo: WRITE PARENTESIS_A expresion COMA expresion PARENTESIS_C PUNTOCOMA;

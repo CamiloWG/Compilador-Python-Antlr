@@ -388,7 +388,7 @@ class VisitorCompiler(gramaticaVisitor):
 
     def visitEscritura_archivo(self, ctx: gramaticaParser.Escritura_archivoContext):
         nombre_archivo = ctx.getChild(2).getText().replace('"','').replace("'","")
-        cadena = ctx.getChild(5).getText().replace('"','').replace("'","")
+        cadena = ctx.getChild(4).getText().replace('"','').replace("'","")
         with open(nombre_archivo, 'w') as file:
             cadena = cadena.replace('~',' ')
             file.write(cadena.replace('¬','\n'))

@@ -1,0 +1,4 @@
+
+write("CodeSamples/archivo_escrito.txt", "Texto de prueba en el archivo");
+
+open("CodeSamples/archivo_escrito.txt");
