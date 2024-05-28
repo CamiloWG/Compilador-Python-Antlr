@@ -29,6 +29,11 @@ class gramaticaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by gramaticaParser#comment.
+    def visitComment(self, ctx:gramaticaParser.CommentContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by gramaticaParser#printf.
     def visitPrintf(self, ctx:gramaticaParser.PrintfContext):
         return self.visitChildren(ctx)

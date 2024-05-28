@@ -5,7 +5,7 @@ options {
 }
 SEP:'¬';
 ESP:'~';
-EX : '#';
+COMMENT: '#';
 NEWLINE: '\r'? '\n' ; 
 TAB: '\t';
 NUMERO: '-'?[0-9]+'.'?[0-9]?;    
@@ -90,6 +90,7 @@ sentencias: printf
         | NEWLINE
         | lectura_archivo
         | escritura_archivo
+        | comment
         ;
 
 asignacion: ID ASIGNACION var_casteo? PARENTESIS_A? (expresion | v_input | matriz_operaciones | arange) PARENTESIS_C? PUNTOCOMA
@@ -98,6 +99,8 @@ asignacion: ID ASIGNACION var_casteo? PARENTESIS_A? (expresion | v_input | matri
           ;
 
 v_input: var_casteo? PARENTESIS_A? INPUT PARENTESIS_A expresion? PARENTESIS_C PARENTESIS_C?;
+
+comment: COMMENT;
 
 printf: PRINT PARENTESIS_A (expresion| COMA |matriz_operaciones)? PARENTESIS_C PUNTOCOMA
 	;
@@ -176,9 +179,9 @@ lista: PARENTESIS_A (NUMERO | ID | BOOLEAN | cadena | COMA)+ PARENTESIS_C;
 
 arreglo: CORCHETE_A (NUMERO | ID | BOOLEAN | cadena | COMA)+ CORCHETE_C;
 
-graficas: ('plot'|'scatter'|'fill_between'|'bar'|'barh'|'hist') PARENTESIS_A x=expresion ',' y=expresion PARENTESIS_C
-        | ('pie'|'boxplot') PARENTESIS_A x=expresion  PARENTESIS_C
-        | ('grafsen'|'grafcos'|'graftan') PARENTESIS_A (arange|ID) COMA func PARENTESIS_C
+graficas: ('plot'|'scatter'|'fill_between'|'bar'|'barh'|'hist') PARENTESIS_A x=expresion ',' y=expresion PARENTESIS_C PUNTOCOMA
+        | ('pie'|'boxplot') PARENTESIS_A x=expresion  PARENTESIS_C PUNTOCOMA
+        | ('grafsen'|'grafcos'|'graftan') PARENTESIS_A (arange|ID) COMA func PARENTESIS_C PUNTOCOMA
         ;
 
 arange  : 'linspace' PARENTESIS_A expresion COMA expresion '*' 'np' PUNTO 'pi' COMA expresion PARENTESIS_C

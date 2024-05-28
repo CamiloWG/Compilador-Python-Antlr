@@ -271,7 +271,7 @@ class gramaticaLexer(Lexer):
     T__26 = 27
     SEP = 28
     ESP = 29
-    EX = 30
+    COMMENT = 30
     NEWLINE = 31
     TAB = 32
     NUMERO = 33
@@ -356,7 +356,7 @@ class gramaticaLexer(Lexer):
             "'--'", "'^'", "'%'", "'write'", "'open'" ]
 
     symbolicNames = [ "<INVALID>",
-            "SEP", "ESP", "EX", "NEWLINE", "TAB", "NUMERO", "WS", "IMPORT", 
+            "SEP", "ESP", "COMMENT", "NEWLINE", "TAB", "NUMERO", "WS", "IMPORT", 
             "DEF", "CLASS", "IF", "ELSE", "FOR", "IN", "RANGE", "SELF", 
             "WHILE", "TRY", "END", "EXCEPT", "RETURN", "BREAK", "NEXT", 
             "INPUT", "PRINT", "INT", "FLOAT", "BOOLEAN", "STR", "POW", "MATHSQRT", 
@@ -371,7 +371,7 @@ class gramaticaLexer(Lexer):
                   "T__7", "T__8", "T__9", "T__10", "T__11", "T__12", "T__13", 
                   "T__14", "T__15", "T__16", "T__17", "T__18", "T__19", 
                   "T__20", "T__21", "T__22", "T__23", "T__24", "T__25", 
-                  "T__26", "SEP", "ESP", "EX", "NEWLINE", "TAB", "NUMERO", 
+                  "T__26", "SEP", "ESP", "COMMENT", "NEWLINE", "TAB", "NUMERO", 
                   "WS", "IMPORT", "DEF", "CLASS", "IF", "ELSE", "FOR", "IN", 
                   "RANGE", "SELF", "WHILE", "TRY", "END", "EXCEPT", "RETURN", 
                   "BREAK", "NEXT", "INPUT", "PRINT", "INT", "FLOAT", "BOOLEAN", 

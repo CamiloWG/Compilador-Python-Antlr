@@ -44,6 +44,15 @@ class gramaticaListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by gramaticaParser#comment.
+    def enterComment(self, ctx:gramaticaParser.CommentContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#comment.
+    def exitComment(self, ctx:gramaticaParser.CommentContext):
+        pass
+
+
     # Enter a parse tree produced by gramaticaParser#printf.
     def enterPrintf(self, ctx:gramaticaParser.PrintfContext):
         pass

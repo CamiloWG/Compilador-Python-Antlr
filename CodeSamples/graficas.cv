@@ -1,0 +1,29 @@
+a = [1, 2, 3, 4];
+b = [1, 2, 0, 0.5]; 
+
+# Grafico de dispersion
+scatter(a, b);
+
+# Grafico de union de puntos
+plot(a, b);
+
+# Grafico de rellenar entre puntos
+fill_between(a, b);
+
+# Grafico de barras verticales
+bar(a, b);
+
+#Grafico de barras horizontales
+barh(a, b);
+
+# Histograma 
+hist([0,3,6,8,10],[2,5,6,10,11]);
+
+# Grafico de torta
+torta = [5, 4, 3, 2, 1];
+pie(torta);
+
+# Diagrama de caja
+caja = [1, 2, 1, 2, 3, 4, 3, 3, 5, 7];
+boxplot(caja);
+

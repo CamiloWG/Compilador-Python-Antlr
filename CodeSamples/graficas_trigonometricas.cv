@@ -1,0 +1,19 @@
+# Grafica de seno
+x = linspace(0, 2*np.pi, 100);
+grafsen(x,np.sin(x));
+
+# Grafica de coseno
+x = linspace(0, 2*np.pi, 100);
+grafcos(x,np.cos(x));
+
+# Grafica de tangente
+x = linspace(0, 2*np.pi, 100);
+graftan(x,np.tan(x));
+
+# Grafica de arcotangente
+x = linspace(0, 2*np.pi, 100);
+grafsen(x,np.arctan(x));
+
+# Grafica de arcoseno
+x = linspace(0, 2*np.pi, 100);
+grafsen(x,np.arccos(x));
