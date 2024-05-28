@@ -1,0 +1,12 @@
+
+
+varUno = 20;
+varDos = 10;
+
+if(varUno > varDos){
+    print("Es mayor");
+} elif(varUno < varDos) {
+    print("Es menor");
+} else {
+    print("Es igual");
+}
