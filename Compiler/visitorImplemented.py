@@ -78,7 +78,6 @@ class VisitorCompiler(gramaticaVisitor):
 
     def executeSentencia(self, ctx):
         for sentencia in ctx.sentencias():
-            print("Visiting sentencia", sentencia)
             self.visit(sentencia)
         if ctx.v_return():
             return self.visit(ctx.v_return())
@@ -256,6 +255,8 @@ class VisitorCompiler(gramaticaVisitor):
             return left and right
         elif ctx.func():
             return self.visit(ctx.func())
+        elif ctx.llamafuncion():
+            return self.visit(ctx.llamafuncion())
         else:
             return self.visit(ctx.termino())
 

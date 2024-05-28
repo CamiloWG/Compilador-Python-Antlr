@@ -5,7 +5,7 @@ options {
 }
 SEP:'¬';
 ESP:'~';
-EX : '!';
+EX : '#';
 NEWLINE: '\r'? '\n' ; 
 TAB: '\t';
 NUMERO: '-'?[0-9]+'.'?[0-9]?;    
@@ -115,24 +115,22 @@ cadena : STRING;
 
 funcion: DEF ID PARENTESIS_A parametro? PARENTESIS_C LLAVE_A stmt_func LLAVE_C;
 
-stmt_func: sentencias* v_return?;
+stmt_func: sentencias* v_return;
 
 
-v_return: RETURN expresion PUNTOCOMA
-        | RETURN PUNTOCOMA
-        ;
+v_return: RETURN expresion PUNTOCOMA;
 
 llamafuncion: ID PARENTESIS_A args? PARENTESIS_C;
 
 args: (termino | ID | llamafuncion) (COMA (termino | ID | llamafuncion))*;
 
-condicional: IF PARENTESIS_A? (parametro|expresion) PARENTESIS_C? LLAVE_A sentencias+ LLAVE_C elifBlock? condicional_else? ;
+condicional: IF PARENTESIS_A (parametro|expresion) PARENTESIS_C LLAVE_A sentencias* LLAVE_C elifBlock? condicional_else?;
 
 elifBlock: condicional_elif+;
 
-condicional_elif: ELIF PARENTESIS_A? (parametro|expresion) PARENTESIS_C? LLAVE_A sentencias+ LLAVE_C;
+condicional_elif: ELIF PARENTESIS_A (parametro|expresion) PARENTESIS_C LLAVE_A sentencias* LLAVE_C;
 
-condicional_else: ELSE LLAVE_A sentencias+ LLAVE_C;
+condicional_else: ELSE LLAVE_A sentencias* LLAVE_C;
 
 ciclo_for: FOR ID IN RANGE PARENTESIS_A expresion COMA? expresion? COMA? expresion? PARENTESIS_C LLAVE_A sentencias+ v_return? LLAVE_C
           | FOR ID IN expresion LLAVE_A sentencias+ v_return? LLAVE_C
@@ -147,8 +145,9 @@ func : ('math'|'np') PUNTO ('sin' | 'cos' | 'tan' | 'arcsin' | 'arccos' | 'arcta
 
 expresion: expresion (SUMA | RESTA | MULTIPLICACION | DIVISION | POTENCIA | MODULO) termino
          | expresion ( MAYORQUE | MENORQUE | MENORIGUAL | MAYORIGUAL | DIFERENTE | IGUAL | ASIGNACION ) termino
-         | expresion (OR | AND )termino
+         | expresion (OR | AND ) termino
          | termino
+         | llamafuncion
          | func
          ;
 
