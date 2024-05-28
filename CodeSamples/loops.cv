@@ -1,0 +1,27 @@
+
+
+def bucleFor(times) {
+    last = times - 1;
+    for i in range(0, times) {
+        print("Hola mundo for");        
+        if(i == last) {
+            print("Ultima vuelta for!");
+        }
+    }
+}
+
+bucleFor(5)
+
+
+def bucleWhile(times) {
+    i = 1;
+    while(i < times) {
+        print("Hola mundo while");        
+        i = i + 1;
+        if(i == times) {
+            print("Ultima vuelta while!");
+        }
+    }
+}
+
+bucleWhile(5)
