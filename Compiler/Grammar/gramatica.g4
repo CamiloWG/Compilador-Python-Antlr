@@ -6,7 +6,6 @@ options {
 SEP:'¬';
 ESP:'~';
 COMMENT: '#';
-NEWLINE: '\r'? '\n' ; 
 TAB: '\t';
 NUMERO: '-'?[0-9]+'.'?[0-9]?;    
 WS: [ \t\r\n]+ -> skip;
@@ -87,7 +86,6 @@ sentencias: printf
         | importss 
         | func
         | matriz_operaciones
-        | NEWLINE
         | lectura_archivo
         | escritura_archivo
         | comment
@@ -102,8 +100,10 @@ v_input: var_casteo? PARENTESIS_A? INPUT PARENTESIS_A expresion? PARENTESIS_C PA
 
 comment: COMMENT;
 
-printf: PRINT PARENTESIS_A (expresion| COMA |matriz_operaciones)? PARENTESIS_C PUNTOCOMA
-	;
+printf: PRINT PARENTESIS_A concatenacion PARENTESIS_C PUNTOCOMA;
+
+concatenacion: expresion (COMA expresion)*;
+
 
 var_casteo: STR
           | INT

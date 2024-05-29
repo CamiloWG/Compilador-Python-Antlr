@@ -62,6 +62,15 @@ class gramaticaListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by gramaticaParser#concatenacion.
+    def enterConcatenacion(self, ctx:gramaticaParser.ConcatenacionContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#concatenacion.
+    def exitConcatenacion(self, ctx:gramaticaParser.ConcatenacionContext):
+        pass
+
+
     # Enter a parse tree produced by gramaticaParser#var_casteo.
     def enterVar_casteo(self, ctx:gramaticaParser.Var_casteoContext):
         pass

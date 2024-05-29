@@ -32,12 +32,17 @@ class VisitorCompiler(gramaticaVisitor):
         self.variables[var_name] = value
 
     def visitPrintf(self, ctx: gramaticaParser.PrintfContext): 
-        if(ctx.matriz_operaciones()):
-            value = self.visit(ctx.matriz_operaciones())
-        else:
-            value = self.visit(ctx.expresion())
+        value = self.visit(ctx.concatenacion())
         print(value)
         return value
+
+    def visitConcatenacion(self, ctx: gramaticaParser.ConcatenacionContext):
+        # Visit the first expression
+        result = self.visit(ctx.expresion(0))
+        # Iterate through the rest of the expressions
+        for i in range(1, len(ctx.expresion())):
+            result += str(self.visit(ctx.expresion(i)))
+        return result
     
     def visitParametro(self, ctx):
         if ctx:
@@ -61,19 +66,24 @@ class VisitorCompiler(gramaticaVisitor):
         func_name = ctx.ID().getText()
         if func_name not in self.funciones:
             raise Exception(f"Function '{func_name}' not defined")
+        
+        parametros_func, cuerpo_funcion = self.funciones[func_name]
+        parametros_llamada = self.visit(ctx.args()) if ctx.args() else []
+        
+        # Guardar las variables actuales
+        variables_actuales = self.variables.copy()
 
-        params_func, body = self.funciones[func_name]
+        # Asignar nuevos valores a los parámetros
+        for param, value in zip(parametros_func, parametros_llamada):
+            self.variables[param] = value
 
-        passed_params = self.visit(ctx.args()) if ctx.args() else []
-        prev_vars = self.variables.copy()
-        self.call_stack.append(prev_vars)
+        # Ejecutar la función y capturar el retorno
+        resultado = self.visit(cuerpo_funcion)
 
-        for param, arg in zip(params_func, passed_params):
-            self.variables[param] = arg
-
-        self.visit(body) 
-        self.variables = self.call_stack.pop()
-
+        # Restaurar las variables originales
+        self.variables = variables_actuales
+        
+        return resultado
 
 
     def executeSentencia(self, ctx):

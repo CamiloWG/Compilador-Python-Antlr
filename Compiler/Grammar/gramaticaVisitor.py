@@ -39,6 +39,11 @@ class gramaticaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by gramaticaParser#concatenacion.
+    def visitConcatenacion(self, ctx:gramaticaParser.ConcatenacionContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by gramaticaParser#var_casteo.
     def visitVar_casteo(self, ctx:gramaticaParser.Var_casteoContext):
         return self.visitChildren(ctx)
