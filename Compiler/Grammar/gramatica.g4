@@ -96,7 +96,7 @@ asignacion: ID ASIGNACION var_casteo? PARENTESIS_A? (expresion | v_input | matri
           | ID ASIGNACION cadena PUNTOCOMA
           ;
 
-v_input: var_casteo? PARENTESIS_A? INPUT PARENTESIS_A expresion? PARENTESIS_C PARENTESIS_C?;
+v_input: var_casteo? PARENTESIS_A? INPUT PARENTESIS_A cadena? PARENTESIS_C PARENTESIS_C?;
 
 comment: COMMENT;
 

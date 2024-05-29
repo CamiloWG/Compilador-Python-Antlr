@@ -25,11 +25,13 @@ class VisitorCompiler(gramaticaVisitor):
         elif(ctx.arange()):
             value = self.visit(ctx.arange())
             self.variables[var_name] = value
+        elif(ctx.v_input()):
+            value = self.visit(ctx.v_input())
+            self.variables[var_name] = value
 
-    def visitV_input(self, ctx: gramaticaParser.V_inputContext):
-        var_name = ctx.ID().getText()
-        value = input()
-        self.variables[var_name] = value
+    def visitV_input(self, ctx: gramaticaParser.V_inputContext):        
+        value = input(self.visit(ctx.cadena()) + "\n" if ctx.cadena() else "")        
+        return value
 
     def visitPrintf(self, ctx: gramaticaParser.PrintfContext): 
         value = self.visit(ctx.concatenacion())
