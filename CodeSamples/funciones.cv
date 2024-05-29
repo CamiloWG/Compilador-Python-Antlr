@@ -1,0 +1,9 @@
+
+
+def num (a, b) {
+    return a + b;
+}
+
+r = num(18, 21);
+
+print("El resultado es: ", r);
