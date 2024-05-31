@@ -110,11 +110,10 @@ class VisitorCompiler(gramaticaVisitor):
 
         if not condition_met and ctx.elifBlock():
             for elif_ctx in ctx.elifBlock().condicional_elif():
-                elif_condition = self.visit(elif_ctx.expresion())
-                if elif_condition and not condition_met:
-                    for statement in ctx.sentencias():
-                        self.visit(statement)
+                elif_condition = self.visit(elif_ctx)
+                if elif_condition:
                     condition_met = True
+                    break
 
         if not condition_met and ctx.condicional_else():
             self.visit(ctx.condicional_else())
@@ -122,6 +121,15 @@ class VisitorCompiler(gramaticaVisitor):
     def visitCondicional_else(self, ctx: gramaticaParser.Condicional_elseContext):
         for statement in ctx.sentencias():
                         self.visit(statement)
+
+    def visitCondicional_elif(self, ctx: gramaticaParser.Condicional_elifContext):
+        condition = self.visit(ctx.expresion())
+        if condition:
+            for statement in ctx.sentencias():
+                self.visit(statement)
+            return True
+        else: return False
+
 
     def visitCiclo_for(self, ctx: gramaticaParser.Ciclo_forContext):
 
