@@ -85,6 +85,7 @@ sentencias: printf
         | graficas 
         | importss 
         | func
+        | v_return
         | matriz_operaciones
         | lectura_archivo
         | escritura_archivo
@@ -125,7 +126,7 @@ v_return: RETURN expresion PUNTOCOMA;
 
 llamafuncion: ID PARENTESIS_A args? PARENTESIS_C;
 
-args: (termino | ID | llamafuncion) (COMA (termino | ID | llamafuncion))*;
+args: expresion (COMA expresion)*;
 
 condicional: IF PARENTESIS_A (parametro|expresion) PARENTESIS_C LLAVE_A sentencias* LLAVE_C elifBlock? condicional_else?;
 
@@ -146,9 +147,7 @@ parametro: ID (COMA ID)*;
 
 func : ('math'|'np') PUNTO ('sin' | 'cos' | 'tan' | 'arcsin' | 'arccos' | 'arctan' |'factorial'|'sqrt' ) PARENTESIS_A expresion PARENTESIS_C;
 
-expresion: expresion (SUMA | RESTA | MULTIPLICACION | DIVISION | POTENCIA | MODULO) termino
-         | expresion ( MAYORQUE | MENORQUE | MENORIGUAL | MAYORIGUAL | DIFERENTE | IGUAL | ASIGNACION ) termino
-         | expresion (OR | AND ) termino
+expresion: expresion (SUMA | RESTA | MULTIPLICACION | DIVISION | POTENCIA | MODULO | MAYORQUE | MENORQUE | MENORIGUAL | MAYORIGUAL | DIFERENTE | IGUAL | ASIGNACION | OR | AND ) termino 
          | termino
          | llamafuncion
          | func

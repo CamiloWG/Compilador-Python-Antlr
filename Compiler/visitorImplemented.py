@@ -7,6 +7,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
+class ReturnValue(Exception):
+    def __init__(self, value):
+        self.value = value
+
 class VisitorCompiler(gramaticaVisitor):
     def __init__(self):
         self.variables = {}
@@ -55,23 +59,23 @@ class VisitorCompiler(gramaticaVisitor):
         return []
     
     def visitArgs(self, ctx):
-        return [self.visit(termino) for termino in ctx.termino()]
+        return [self.visit(exp) for exp in ctx.expresion()]
 
         
     def visitFuncion(self, ctx):
         func_name = ctx.ID().getText()
         params = self.visit(ctx.parametro()) if ctx.parametro() else []
         body = ctx.stmt_func()
-        self.funciones[func_name] = (params, body)
+        self.funciones[func_name] = (params, body) 
 
     def visitLlamafuncion(self, ctx):
         func_name = ctx.ID().getText()
         if func_name not in self.funciones:
             raise Exception(f"Function '{func_name}' not defined")
-        
+
         parametros_func, cuerpo_funcion = self.funciones[func_name]
         parametros_llamada = self.visit(ctx.args()) if ctx.args() else []
-        
+
         # Guardar las variables actuales
         variables_actuales = self.variables.copy()
 
@@ -79,15 +83,24 @@ class VisitorCompiler(gramaticaVisitor):
         for param, value in zip(parametros_func, parametros_llamada):
             self.variables[param] = value
 
-        # Ejecutar la función y capturar el retorno
-        resultado = self.visit(cuerpo_funcion)
+        try:
+            # Ejecutar la función y capturar el retorno
+            resultado = self.visit(cuerpo_funcion)
+        except ReturnValue as e:
+            resultado = e.value
 
         # Restaurar las variables originales
         self.variables = variables_actuales
-        
+
         return resultado
 
 
+    def visitStmt_func(self, ctx):
+        for sentencia in ctx.sentencias():
+            resultado = self.visit(sentencia)
+            if isinstance(resultado, ReturnValue):
+                return resultado.value
+            
     def executeSentencia(self, ctx):
         for sentencia in ctx.sentencias():
             self.visit(sentencia)
@@ -96,8 +109,9 @@ class VisitorCompiler(gramaticaVisitor):
 
     def visitV_return(self, ctx):
         if ctx.expresion():
-            return self.visit(ctx.expresion())
-        return None
+            resultado = self.visit(ctx.expresion()) 
+            raise ReturnValue(resultado)
+        raise ReturnValue(None)
 
     def visitCondicional(self, ctx: gramaticaParser.CondicionalContext):
         condition = self.visit(ctx.expresion())
