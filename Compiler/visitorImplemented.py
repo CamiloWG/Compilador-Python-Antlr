@@ -32,6 +32,10 @@ class VisitorCompiler(gramaticaVisitor):
         elif(ctx.v_input()):
             value = self.visit(ctx.v_input())
             self.variables[var_name] = value
+        elif(ctx.lectura_archivo()):
+            value = self.visit(ctx.lectura_archivo())
+            self.variables[var_name] = value
+
 
     def visitV_input(self, ctx: gramaticaParser.V_inputContext):        
         value = input(self.visit(ctx.cadena()) + "\n" if ctx.cadena() else "")        
@@ -478,23 +482,34 @@ class VisitorCompiler(gramaticaVisitor):
         return arr
     
     def visitLectura_archivo(self, ctx: gramaticaParser.Lectura_archivoContext):
-        nombre_archivo = ctx.getChild(2).getText().replace('"','').replace("'","")
-        with open(nombre_archivo, 'r') as file:
-            lineas = file.readlines()
-        for i in range(len(lineas)):
-            if(lineas[i]=="\n"):
-                print("\n")
-            else:
-                print(lineas[i])
+        # Obtener el nombre del archivo desde la expresión
+        filename = self.visit(ctx.expresion())
+        
+        # Abrir el archivo y leer su contenido
+        try:
+            with open(filename, 'r') as file:
+                content = file.read()
+            return content
+        except FileNotFoundError:
+            print(f"Error: El archivo '{filename}' no fue encontrado.")
+            return None
+        except Exception as e:
+            print(f"Error al leer el archivo '{filename}': {e}")
+            return None
 
-        # Realizar acciones con las líneas del archivo leído, si es necesario
 
     def visitEscritura_archivo(self, ctx: gramaticaParser.Escritura_archivoContext):
-        nombre_archivo = ctx.getChild(2).getText().replace('"','').replace("'","")
-        cadena = ctx.getChild(4).getText().replace('"','').replace("'","")
-        with open(nombre_archivo, 'w') as file:
-            cadena = cadena.replace('~',' ')
-            file.write(cadena.replace('¬','\n'))
+        filename = self.visit(ctx.expresion(0))
+        content = str(self.visit(ctx.expresion(1)))
+        
+        # Abrir el archivo y escribir el contenido
+        try:
+            with open(filename, 'w') as file:
+                file.write(content)
+            return True
+        except Exception as e:
+            print(f"Error al escribir en el archivo '{filename}': {e}")
+            return False
 
     def visitFunc(self, ctx: gramaticaParser.FuncContext):
         value = self.visit(ctx.expresion())

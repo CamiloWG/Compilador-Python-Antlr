@@ -64,8 +64,8 @@ MASMAS: '++';
 MENOSMENOS: '--';
 POTENCIA:'^';
 MODULO:'%';
-WRITE: 'write';
-OPEN: 'open';
+WRITE: 'escribir';
+OPEN: 'leer';
 APPEND: 'append';
 REMOVE: 'remove';
 ID: [a-zA-Z] [a-zA-Z0-9]*;
@@ -98,6 +98,7 @@ sentencias: printf
 asignacion: ID ASIGNACION var_casteo? PARENTESIS_A? (expresion | v_input | matriz_operaciones | arange) PARENTESIS_C? PUNTOCOMA
           | ID ASIGNACION ID PARENTESIS_A (parametro | expresion | matriz_operaciones )? PARENTESIS_C PUNTOCOMA
           | ID ASIGNACION cadena PUNTOCOMA
+          | ID ASIGNACION lectura_archivo PUNTOCOMA
           ;
 
 v_input: var_casteo? PARENTESIS_A? INPUT PARENTESIS_A cadena? PARENTESIS_C PARENTESIS_C?;
@@ -189,6 +190,7 @@ graficas: ('plot'|'scatter'|'fill_between'|'bar'|'barh'|'hist') PARENTESIS_A x=e
 
 arange  : 'linspace' PARENTESIS_A expresion COMA expresion '*' 'np' PUNTO 'pi' COMA expresion PARENTESIS_C
         ;
-lectura_archivo: OPEN PARENTESIS_A expresion PARENTESIS_C PUNTOCOMA;
+
+lectura_archivo: OPEN PARENTESIS_A expresion PARENTESIS_C;
 
 escritura_archivo: WRITE PARENTESIS_A expresion COMA expresion PARENTESIS_C PUNTOCOMA;

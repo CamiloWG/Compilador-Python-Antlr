@@ -1,4 +1,11 @@
+lab = [];
 
-write("CodeSamples/archivo_escrito.txt", "Texto de prueba en el archivo");
+for i in range(0, 100) {
+    lab.append(i);
+}
 
-open("CodeSamples/archivo_escrito.txt");
+escribir("CodeSamples/archivo_escrito.txt", lab);
+
+valor = leer("CodeSamples/archivo_escrito.txt");
+
+print(valor);
