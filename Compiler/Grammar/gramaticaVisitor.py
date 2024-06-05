@@ -189,5 +189,10 @@ class gramaticaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by gramaticaParser#random_funcion.
+    def visitRandom_funcion(self, ctx:gramaticaParser.Random_funcionContext):
+        return self.visitChildren(ctx)
+
+
 
 del gramaticaParser

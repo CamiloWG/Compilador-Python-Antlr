@@ -99,6 +99,7 @@ asignacion: ID ASIGNACION var_casteo? PARENTESIS_A? (expresion | v_input | matri
           | ID ASIGNACION ID PARENTESIS_A (parametro | expresion | matriz_operaciones )? PARENTESIS_C PUNTOCOMA
           | ID ASIGNACION cadena PUNTOCOMA
           | ID ASIGNACION lectura_archivo PUNTOCOMA
+          | ID ASIGNACION random_funcion PUNTOCOMA
           ;
 
 v_input: var_casteo? PARENTESIS_A? INPUT PARENTESIS_A cadena? PARENTESIS_C PARENTESIS_C?;
@@ -194,3 +195,7 @@ arange  : 'linspace' PARENTESIS_A expresion COMA expresion '*' 'np' PUNTO 'pi' C
 lectura_archivo: OPEN PARENTESIS_A expresion PARENTESIS_C;
 
 escritura_archivo: WRITE PARENTESIS_A expresion COMA expresion PARENTESIS_C PUNTOCOMA;
+
+
+random_funcion: 'random' PARENTESIS_A expresion COMA expresion (COMA expresion)? PARENTESIS_C;
+

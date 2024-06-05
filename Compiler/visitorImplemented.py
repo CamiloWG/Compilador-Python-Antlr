@@ -1,3 +1,4 @@
+import random
 from antlr4 import *
 from Grammar.gramaticaParser import gramaticaParser
 from Grammar.gramaticaVisitor import gramaticaVisitor
@@ -35,6 +36,9 @@ class VisitorCompiler(gramaticaVisitor):
         elif(ctx.lectura_archivo()):
             value = self.visit(ctx.lectura_archivo())
             self.variables[var_name] = value
+        elif(ctx.random_funcion()):
+            value = self.visit(ctx.random_funcion())
+            self.variables[var_name] = value
 
 
     def visitV_input(self, ctx: gramaticaParser.V_inputContext):        
@@ -65,6 +69,24 @@ class VisitorCompiler(gramaticaVisitor):
     def visitArgs(self, ctx):
         return [self.visit(exp) for exp in ctx.expresion()]
 
+    def visitRandom_funcion(self, ctx: gramaticaParser.Random_funcionContext):
+        # Obtener los argumentos de la expresión
+        start = self.visit(ctx.expresion(0))
+        end = self.visit(ctx.expresion(1))
+        
+        # Verificar si hay un tercer argumento (paso)
+        if ctx.expresion(2):
+            step = self.visit(ctx.expresion(2))
+        else:
+            step = None
+
+        # Generar un número aleatorio
+        if step is None:
+            result = random.uniform(start, end)  # Número aleatorio en el rango [start, end)
+        else:
+            result = random.randrange(start, end, step)  # Número aleatorio en el rango [start, end) con paso `step`
+        
+        return result
         
     def visitFuncion(self, ctx):
         func_name = ctx.ID().getText()

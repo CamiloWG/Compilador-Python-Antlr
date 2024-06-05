@@ -332,5 +332,14 @@ class gramaticaListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by gramaticaParser#random_funcion.
+    def enterRandom_funcion(self, ctx:gramaticaParser.Random_funcionContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#random_funcion.
+    def exitRandom_funcion(self, ctx:gramaticaParser.Random_funcionContext):
+        pass
+
+
 
 del gramaticaParser
