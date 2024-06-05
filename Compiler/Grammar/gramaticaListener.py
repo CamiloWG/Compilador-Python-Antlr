@@ -251,6 +251,15 @@ class gramaticaListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by gramaticaParser#metodo.
+    def enterMetodo(self, ctx:gramaticaParser.MetodoContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#metodo.
+    def exitMetodo(self, ctx:gramaticaParser.MetodoContext):
+        pass
+
+
     # Enter a parse tree produced by gramaticaParser#importss.
     def enterImportss(self, ctx:gramaticaParser.ImportssContext):
         pass

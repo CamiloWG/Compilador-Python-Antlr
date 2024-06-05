@@ -166,14 +166,12 @@ class VisitorCompiler(gramaticaVisitor):
         elif len(ctx.expresion()) == 1:
             cadena = (ctx.expresion(0).getText()) 
             if cadena[0] == '"' and cadena[-1] == '"':
-                cadena = cadena[1:-1]  # Eliminar las comillas alrededor de la cadena
-            elif cadena[0] == '\'' and cadena[-1] == '\'':
-                cadena = cadena[1:-1]  # Eliminar las comillas alrededor de la cadena
-            for a in cadena:
-                self.variables[variable] = a  # Asignar el valor de la variable en cada iteración
-                for statement in ctx.sentencias():
-                    self.visit(statement)  # Visitar las sentencias dentro del ciclo "for"
-    
+                cadena = cadena[1:-1]  # Eliminar las comillas alrededor de la cadena 
+                for a in cadena:
+                    self.variables[variable] = a  # Asignar el valor de la variable en cada iteración
+                    for statement in ctx.sentencias():
+                        self.visit(statement)  # Visitar las sentencias dentro del ciclo "for"
+                
         else:
             start = ctx.expresion(0).getText() # Obtener el valor inicial
             if(start.isalpha()):
@@ -300,7 +298,7 @@ class VisitorCompiler(gramaticaVisitor):
             var_name = ctx.getChild(0).getText()
             return self.variables.get(var_name)
         elif ctx.NUMERO():
-            return ctx.NUMERO().getText()
+            return int(ctx.NUMERO().getText())
         elif ctx.BOOLEAN():
             bool_value = ctx.BOOLEAN().getText()
             return bool_value == 'True'
@@ -320,13 +318,79 @@ class VisitorCompiler(gramaticaVisitor):
         return [element.strip() for element in elements]  # Crear una lista resultante, eliminando los espacios en blanco alrededor de cada elemento
 
     def visitArreglo(self, ctx: gramaticaParser.ArregloContext):
-        text = ctx.getText()[1:-1]  # Obtener el texto sin los corchetes
+        text = ctx.getText().strip()[1:-1]  # Obtener el texto sin los corchetes y eliminar espacios en blanco
+        if not text:  # Si el texto está vacío, retornar una lista vacía
+            return []
         elements = text.split(',')
-        elements = [float(x) for x in elements]  # Convertir cada elemento a entero
+        elements = [float(x) for x in elements]  # Convertir cada elemento a flotante
         return elements
-        #elements = text.split(',')  # Dividir el texto en función del separador (coma en este caso)
-        #return [element.strip() for element in elements]  # Crear un arreglo resultante, eliminando los espacios en blanco alrededor de cada elemento y convirtiendo los elementos a float
 
+    def visitMetodo(self, ctx):
+        variable = ctx.ID().getText()  # Nombre de la variable
+        metodo = ctx.getChild(2).getText()
+        args = [self.visit(ctx.expresion())]  # Argumentos del método
+
+        # Verificar qué método se está llamando y realizar la acción correspondiente
+        if metodo == 'append':
+            if isinstance(self.variables[variable], list):  # Si es una lista
+                self.variables[variable].append(args[0])  # Agregar el argumento a la lista
+            elif isinstance(self.variables[variable], np.ndarray):  # Si es una matriz
+                self.variables[variable] = np.vstack([self.variables[variable], args])
+            else:
+                raise Exception("Append operation not supported for this type")
+        elif metodo == 'remove':
+            if isinstance(self.variables[variable], list):  # Si es una lista
+                del self.variables[variable][args[0]]
+            elif isinstance(self.variables[variable], np.ndarray):  # Si es una matriz
+                if isinstance(args[0], int):  # Si se pasó un índice
+                    self.variables[variable] = np.delete(self.variables[variable], args[0], axis=0)
+                else:  # Si se pasó el valor del elemento
+                    for i, fila in enumerate(self.variables[variable]):
+                        if args[0] in fila:
+                            self.variables[variable] = np.delete(self.variables[variable], i, axis=0)
+                            break
+                    else:
+                        raise ValueError(f"{args[0]} not in array")
+            else:
+                raise Exception("Remove operation not supported for this type")
+        else:
+            raise Exception(f"Method '{metodo}' not recognized")
+
+    def append(self, variable, value):
+        if isinstance(variable, list):
+            variable.append(value)
+        elif isinstance(variable, np.ndarray):
+            value = np.array([value], dtype=object)
+            variable = np.vstack([variable, value])
+        else:
+            raise Exception("Append operation not supported for this type")
+        return variable
+
+    def remove(self, variable, index_or_value):
+        if isinstance(variable, list):
+            if isinstance(index_or_value, int):
+                del variable[index_or_value]
+            else:
+                variable.remove(index_or_value)
+        elif isinstance(variable, np.ndarray):
+            if isinstance(index_or_value, int):
+                variable = np.delete(variable, index_or_value, axis=0)
+            else:
+                for row in variable:
+                    if index_or_value in row:
+                        variable = np.delete(variable, np.where(variable == index_or_value)[0][0], axis=0)
+                        break
+                else:
+                    raise ValueError(f"{index_or_value} not in array")
+        else:
+            raise Exception("Remove operation not supported for this type")
+        return variable
+
+    def parse_element(self, element):
+        try:
+            return float(element) if '.' in element else int(element)
+        except ValueError:
+            return element
 
     def visitGraficas(self, ctx: gramaticaParser.GraficasContext):
         if ctx.getChild(0).getText() == "scatter":

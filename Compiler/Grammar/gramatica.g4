@@ -66,6 +66,8 @@ POTENCIA:'^';
 MODULO:'%';
 WRITE: 'write';
 OPEN: 'open';
+APPEND: 'append';
+REMOVE: 'remove';
 ID: [a-zA-Z] [a-zA-Z0-9]*;
 STRING: '"'(~["\\\r\n])*'"';
 
@@ -77,6 +79,7 @@ sentencias: printf
         | llamafuncion 
         | condicional
         | ciclo_while
+        | metodo
         | expresion
         | funcion
         | ciclo_for
@@ -137,8 +140,7 @@ condicional_elif: ELIF PARENTESIS_A (parametro|expresion) PARENTESIS_C LLAVE_A s
 condicional_else: ELSE LLAVE_A sentencias* LLAVE_C;
 
 ciclo_for: FOR ID IN RANGE PARENTESIS_A expresion COMA? expresion? COMA? expresion? PARENTESIS_C LLAVE_A sentencias+ v_return? LLAVE_C
-          | FOR ID IN expresion LLAVE_A sentencias+ v_return? LLAVE_C
-          | FOR ID IN cadena LLAVE_A sentencias+ v_return? LLAVE_C
+          | FOR ID IN expresion LLAVE_A sentencias+ v_return? LLAVE_C 
           ;
 
 ciclo_while: WHILE PARENTESIS_A? expresion PARENTESIS_C? LLAVE_A sentencias+ LLAVE_C;
@@ -164,6 +166,8 @@ matriz: CORCHETE_A fila_matriz (COMA fila_matriz)* CORCHETE_C;
 
 fila_matriz: CORCHETE_A expresion (COMA expresion)* CORCHETE_C;
 
+metodo: ID PUNTO (APPEND | REMOVE) PARENTESIS_A expresion PARENTESIS_C PUNTOCOMA;
+
 importss: IMPORT ('math' | 'matplotlib.pyplot' | 'numpy as np');
 
 termino: NUMERO
@@ -174,9 +178,9 @@ termino: NUMERO
        | arreglo
        ;
 
-lista: PARENTESIS_A (NUMERO | ID | BOOLEAN | cadena | COMA)+ PARENTESIS_C;
+lista: PARENTESIS_A (NUMERO | ID | BOOLEAN | cadena | COMA)* PARENTESIS_C;
 
-arreglo: CORCHETE_A (NUMERO | ID | BOOLEAN | cadena | COMA)+ CORCHETE_C;
+arreglo: CORCHETE_A (NUMERO | ID | BOOLEAN | cadena | COMA)* CORCHETE_C;
 
 graficas: ('plot'|'scatter'|'fill_between'|'bar'|'barh'|'hist') PARENTESIS_A x=expresion ',' y=expresion PARENTESIS_C PUNTOCOMA
         | ('pie'|'boxplot') PARENTESIS_A x=expresion  PARENTESIS_C PUNTOCOMA

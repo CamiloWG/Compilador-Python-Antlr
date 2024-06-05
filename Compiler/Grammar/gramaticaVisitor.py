@@ -144,6 +144,11 @@ class gramaticaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by gramaticaParser#metodo.
+    def visitMetodo(self, ctx:gramaticaParser.MetodoContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by gramaticaParser#importss.
     def visitImportss(self, ctx:gramaticaParser.ImportssContext):
         return self.visitChildren(ctx)
