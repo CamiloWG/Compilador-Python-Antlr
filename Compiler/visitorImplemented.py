@@ -146,52 +146,44 @@ class VisitorCompiler(gramaticaVisitor):
 
 
     def visitCiclo_for(self, ctx: gramaticaParser.Ciclo_forContext):
+        # Obtener el nombre de la variable iteradora
+        variable = ctx.ID().getText()
 
-        variable = ctx.getChild(1).getText()  # Obtener el nombre de la variable
+        # Determinar el tipo de ciclo for
+        if ctx.RANGE():  # Ciclo for con range()
+            # Obtener los límites del rango
+            start = int(ctx.expresion(0).getText())
+            end = int(ctx.expresion(1).getText())
 
-        ve = ctx.expresion(0).getText()
-        if(ve[0]=="[" or ve[0]=="("):
-            if(ve[0]=="["):
-                ve = ve[1:-1]
-                arr = ve.split(",")
-                for i in range(len(arr)):
-                    if(arr[i][0]=='"'):
-                        arr[i] = arr[i][1:-1]
-                        
-                for value in arr:
-                    self.variables[variable] = value  # Asignar el valor de la variable en cada iteración
-                    for statement in ctx.sentencias():
-                        self.visit(statement)  # Visitar las sentencias dentro del ciclo "for"
-
-        elif len(ctx.expresion()) == 1:
-            cadena = (ctx.expresion(0).getText()) 
-            if cadena[0] == '"' and cadena[-1] == '"':
-                cadena = cadena[1:-1]  # Eliminar las comillas alrededor de la cadena 
-                for a in cadena:
-                    self.variables[variable] = a  # Asignar el valor de la variable en cada iteración
-                    for statement in ctx.sentencias():
-                        self.visit(statement)  # Visitar las sentencias dentro del ciclo "for"
-                
-        else:
-            start = ctx.expresion(0).getText() # Obtener el valor inicial
-            if(start.isalpha()):
-                start = int(self.variables[start])
-            end = ctx.expresion(1).getText()  # Obtener el valor final
-            if(end.isalpha()):
-                end= int(self.variables[end])
-            # Verificar si se proporcionó un incremento
-            if len(ctx.expresion()) > 2:
-                step = ctx.expresion(2).getText()  # Obtener el incremento
-                if(step.isalpha()):
-                    step= int(self.variables[step])
+            # Verificar si se proporciona un valor para el incremento
+            if len(ctx.expresion()) == 3:
+                step = int(ctx.expresion(2).getText())
             else:
-                step = 1  # Valor predeterminado del incremento
-            # Iterar desde el valor inicial hasta el valor final (exclusivo) con el incremento especificado
-            for value in range(int(start), int(end), int(step)):
+                step = 1
 
-                self.variables[variable] = value  # Asignar el valor de la variable en cada iteración
-                for statement in ctx.sentencias():
-                        self.visit(statement)  # Visitar las sentencias dentro del ciclo "for"
+            # Ejecutar el ciclo for utilizando range()
+            for valor in range(start, end, step):
+                # Asignar el valor de la iteración a la variable
+                self.variables[variable] = valor
+                # Visitar las sentencias dentro del ciclo
+                for sentencia in ctx.sentencias():
+                    self.visit(sentencia)
+
+        else:  # Ciclo for con una expresión iterable
+            # Obtener la expresión iterable
+            iterable = self.visit(ctx.expresion(0))
+
+            # Ejecutar el ciclo for sobre el iterable
+            for valor in iterable:
+                # Asignar el valor de la iteración a la variable
+                self.variables[variable] = valor
+                # Visitar las sentencias dentro del ciclo
+                for sentencia in ctx.sentencias():
+                    self.visit(sentencia)
+
+        # Verificar si hay un return al final del ciclo
+        if ctx.v_return():
+            return self.visit(ctx.v_return())
 
     def visitCiclo_while(self, ctx: gramaticaParser.Ciclo_whileContext):
         while self.visit(ctx.expresion()):
