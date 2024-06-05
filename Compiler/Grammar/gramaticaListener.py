@@ -224,6 +224,15 @@ class gramaticaListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by gramaticaParser#split_expr.
+    def enterSplit_expr(self, ctx:gramaticaParser.Split_exprContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#split_expr.
+    def exitSplit_expr(self, ctx:gramaticaParser.Split_exprContext):
+        pass
+
+
     # Enter a parse tree produced by gramaticaParser#matriz_operaciones.
     def enterMatriz_operaciones(self, ctx:gramaticaParser.Matriz_operacionesContext):
         pass

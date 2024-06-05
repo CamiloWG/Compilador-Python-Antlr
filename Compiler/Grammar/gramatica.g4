@@ -155,7 +155,11 @@ expresion: expresion (SUMA | RESTA | MULTIPLICACION | DIVISION | POTENCIA | MODU
          | termino
          | llamafuncion
          | func
+         | split_expr
          ;
+
+
+split_expr: ID PUNTO 'split' PARENTESIS_A expresion PARENTESIS_C;
 
 matriz_operaciones: matriz SUMA? matriz?
                   | matriz RESTA matriz

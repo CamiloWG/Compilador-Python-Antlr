@@ -320,8 +320,28 @@ class VisitorCompiler(gramaticaVisitor):
             return self.visit(ctx.func())
         elif ctx.llamafuncion():
             return self.visit(ctx.llamafuncion())
+        elif ctx.split_expr():
+            return self.visit(ctx.split_expr())
         else:
             return self.visit(ctx.termino())
+        
+    def visitSplit_expr(self, ctx: gramaticaParser.Split_exprContext):
+        # Obtener el nombre de la variable de cadena
+        cadena_var = ctx.ID().getText()
+        cadena = self.variables[cadena_var]
+        
+        if not isinstance(cadena, str):            
+            raise ValueError(f"{cadena_var} no es una cadena")
+
+        # Obtener el delimitador
+        delimitador = self.visit(ctx.expresion())
+
+        if not isinstance(delimitador, str):
+            raise ValueError(f"El delimitador debe ser una cadena, recibido {type(delimitador).__name__}")
+
+        # Realizar el split
+        result = cadena.split(delimitador)
+        return result
 
 
     def visitTermino(self, ctx: gramaticaParser.TerminoContext):

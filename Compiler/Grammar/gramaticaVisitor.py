@@ -129,6 +129,11 @@ class gramaticaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by gramaticaParser#split_expr.
+    def visitSplit_expr(self, ctx:gramaticaParser.Split_exprContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by gramaticaParser#matriz_operaciones.
     def visitMatriz_operaciones(self, ctx:gramaticaParser.Matriz_operacionesContext):
         return self.visitChildren(ctx)
