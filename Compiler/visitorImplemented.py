@@ -152,9 +152,13 @@ class VisitorCompiler(gramaticaVisitor):
         # Determinar el tipo de ciclo for
         if ctx.RANGE():  # Ciclo for con range()
             # Obtener los límites del rango
-            start = int(ctx.expresion(0).getText())
-            end = int(ctx.expresion(1).getText())
-
+            start = ctx.expresion(0).getText() # Obtener el valor inicial
+            if(start.isalpha()):
+                start = int(self.variables[start])
+            end = ctx.expresion(1).getText()  # Obtener el valor final
+            if(end.isalpha()):
+                end = int(self.variables[end])
+ 
             # Verificar si se proporciona un valor para el incremento
             if len(ctx.expresion()) == 3:
                 step = int(ctx.expresion(2).getText())
@@ -162,7 +166,7 @@ class VisitorCompiler(gramaticaVisitor):
                 step = 1
 
             # Ejecutar el ciclo for utilizando range()
-            for valor in range(start, end, step):
+            for valor in range(int(start), int(end), step):
                 # Asignar el valor de la iteración a la variable
                 self.variables[variable] = valor
                 # Visitar las sentencias dentro del ciclo

@@ -1,11 +1,10 @@
-def prueba(num) {
-    print("3 veces");
-    for i in range(0, num) {
-        print("Hola mundo");
-        if(i == 2){
-            print("Fin");
-        }
-    }    
+
+numA = [];
+numB = [];
+
+for i in range(-150, 151) {
+    numA.append(i);
+    numB.append(i ^ 2);
 }
 
-prueba(4)
+plot(numA, numB);
