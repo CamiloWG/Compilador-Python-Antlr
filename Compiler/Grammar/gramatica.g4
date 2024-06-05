@@ -158,8 +158,8 @@ expresion: expresion (SUMA | RESTA | MULTIPLICACION | DIVISION | POTENCIA | MODU
 matriz_operaciones: matriz SUMA? matriz?
                   | matriz RESTA matriz
                   | matriz MULTIPLICACION matriz
-                  | 'inv' PARENTESIS_A matriz PARENTESIS_C
-                  | 'trans' PARENTESIS_A matriz PARENTESIS_C
+                  | 'inv' PARENTESIS_A (matriz | ID) PARENTESIS_C
+                  | 'trans' PARENTESIS_A (matriz | ID) PARENTESIS_C
                   ;
 
 matriz: CORCHETE_A fila_matriz (COMA fila_matriz)* CORCHETE_C;

@@ -197,7 +197,7 @@ class VisitorCompiler(gramaticaVisitor):
             result = self.visit(ctx.matriz(0))
         else:
             if(ctx.getChild(0).getText()=="trans" or ctx.getChild(0).getText()=="inv"):
-                matrix1 = self.visit(ctx.matriz(0))
+                matrix1 = self.visit(ctx.matriz(0)) if ctx.matriz(0) else self.variables[ctx.ID().getText()]
                 matrix1 = np.array(matrix1)
                 if ctx.getChild(0).getText()== 'trans':
                     result = np.transpose(matrix1)
@@ -233,20 +233,29 @@ class VisitorCompiler(gramaticaVisitor):
         if ctx.SUMA() or ctx.RESTA() or ctx.MULTIPLICACION() or ctx.DIVISION() or ctx.POTENCIA() or ctx.MODULO():
             left = self.visit(ctx.expresion())
             right = self.visit(ctx.termino())
+            
             op = ctx.getChild(1).getText()
-            if op == '+':
-                a=float(left) + float(right)
-            elif op == '-':
-                a= float(left) - float(right)
-            elif op == '*':
-                a= float(left) * float(right) 
-            elif op == '/':
-                a = float(left) / float(right)
-            elif op == '^':
-                a = float(left) ** float(right)
-            elif op == '%':
-                a = float(left) % float(right)
-            return a
+            if isinstance(left, np.ndarray) or isinstance(right, np.ndarray):
+                # Si alguno de los operandos es una matriz, realizar operación matricial
+                if op == '+':
+                    return np.add(left, right)
+                elif op == '-':
+                    return np.subtract(left, right)
+                elif op == '*':
+                    return np.matmul(left, right)  # Multiplicación de matrices
+            else: 
+                if op == '+':
+                    return float(left) + float(right)
+                elif op == '-':
+                    return float(left) - float(right)
+                elif op == '*':
+                    return float(left) * float(right) 
+                elif op == '/':
+                    return float(left) / float(right)
+                elif op == '^':
+                    return float(left) ** float(right)
+                elif op == '%':
+                    return float(left) % float(right)
         elif ctx.MAYORQUE() or ctx.MENORQUE() or ctx.MENORIGUAL() or ctx.MAYORIGUAL() or ctx.DIFERENTE() or ctx.IGUAL():
             left = self.visit(ctx.expresion())
             right = self.visit(ctx.termino())
